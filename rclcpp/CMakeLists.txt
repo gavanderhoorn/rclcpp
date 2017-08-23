@@ -59,6 +59,7 @@ set(${PROJECT_NAME}_SRCS
   src/rclcpp/service.cpp
   src/rclcpp/subscription.cpp
   src/rclcpp/time.cpp
+  src/rclcpp/time_source.cpp
   src/rclcpp/timer.cpp
   src/rclcpp/type_support.cpp
   src/rclcpp/utilities.cpp
@@ -250,6 +251,14 @@ if(BUILD_TESTING)
     ament_target_dependencies(test_time
       "rcl")
     target_link_libraries(test_time ${PROJECT_NAME})
+  endif()
+
+  ament_add_gtest(test_time_source test/test_time_source.cpp
+    APPEND_LIBRARY_DIRS "${append_library_dirs}")
+  if(TARGET test_time_source)
+    ament_target_dependencies(test_time_source
+      "rcl")
+    target_link_libraries(test_time_source ${PROJECT_NAME})
   endif()
 endif()
 
