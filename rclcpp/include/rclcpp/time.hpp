@@ -42,10 +42,17 @@ public:
   explicit Time(const rcl_time_point_t & time_point);
 
   RCLCPP_PUBLIC
+  Time(const Time & rhs);
+
+  RCLCPP_PUBLIC
   virtual ~Time();
 
   RCLCPP_PUBLIC
   operator builtin_interfaces::msg::Time() const;
+
+  RCLCPP_PUBLIC
+  void
+  operator=(const Time & rhs);
 
   RCLCPP_PUBLIC
   void

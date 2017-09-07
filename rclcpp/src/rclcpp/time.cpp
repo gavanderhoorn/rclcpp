@@ -64,6 +64,12 @@ Time::Time(uint64_t nanoseconds, rcl_clock_type_t clock_type)
   rcl_time_.nanoseconds = nanoseconds;
 }
 
+Time::Time(const Time & rhs)
+{
+  rcl_time_.nanoseconds = rhs.rcl_time_.nanoseconds;
+  rcl_time_.clock_type = rhs.rcl_time_.clock_type;
+}
+
 Time::Time(const builtin_interfaces::msg::Time & time_msg)  // NOLINT
 {
   rcl_clock_type_t ros_time = RCL_ROS_TIME;  // TODO(tfoote) hard coded ROS here
@@ -95,6 +101,13 @@ Time::operator builtin_interfaces::msg::Time() const
   msg_time.sec = static_cast<std::int32_t>(RCL_NS_TO_S(rcl_time_.nanoseconds));
   msg_time.nanosec = static_cast<std::uint32_t>(rcl_time_.nanoseconds % (1000 * 1000 * 1000));
   return msg_time;
+}
+
+void
+Time::operator=(const Time & rhs)
+{
+  rcl_time_.nanoseconds = rhs.rcl_time_.nanoseconds;
+  rcl_time_.clock_type = rhs.rcl_time_.clock_type;
 }
 
 void
